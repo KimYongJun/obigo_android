@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.obigo.obigoproject">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!-- splash -->
+        <activity
+            android:name=".activity.SplashActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- splash -->
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/AppTheme.Dark" />
+
+        <activity android:name=".activity.MenuActivity" />
+        <activity android:name=".activity.CarListActivity"/>
+        <activity android:name=".activity.MessageActivity"/>
+        <activity android:name=".activity.RequestActivity"/>
+        <activity android:name=".activity.SettingsActivity"/>
+
+
+    </application>
+
+</manifest>
