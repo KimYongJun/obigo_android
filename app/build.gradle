@@ -45,6 +45,10 @@ dependencies {
     compile 'com.gregacucnik:edittextview:1.6'
     // push message library
     compile files('libs/universal-image-loader-1.2.1.jar')
+    // retrofit2
+    compile 'com.squareup.retrofit2:retrofit:2.0.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+
     compile 'com.android.support:support-v4:24.0.1'
     compile 'com.android.support:support-vector-drawable:24.0.1'
 
