@@ -2,9 +2,10 @@ package com.obigo.obigoproject.presenter;
 
 import android.util.Log;
 
+import com.google.gson.annotations.SerializedName;
 import com.obigo.obigoproject.service.LookService;
 import com.obigo.obigoproject.service.ServiceManager;
-import com.obigo.obigoproject.vo.User;
+import com.obigo.obigoproject.vo.UsersVO;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,7 +19,8 @@ public class LookPresenter {
     private LookService lookService;
 
     private String id;
-    private User user;
+    @SerializedName("")
+    private UsersVO user;
 
     public LookPresenter(String id) {
 //        this.view = view; 앞부분에 들어갈 내용(파라미터) LookFragment view,
@@ -29,9 +31,9 @@ public class LookPresenter {
     public void getLook() {
 //        view.showLoadingMessage();
         Log.i("id : ", id);
-        lookService.getLook(id).enqueue(new Callback<User>() {
+        lookService.getLook(id).enqueue(new Callback<UsersVO>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<UsersVO> call, Response<UsersVO> response) {
 //                view.hideLoadingMessage();
                 user = response.body();
                 Log.i("user : ", user.toString());
@@ -39,7 +41,7 @@ public class LookPresenter {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<UsersVO> call, Throwable t) {
                 Log.i("에러 : ", t.getMessage());
 //                view.hideLoadingMessage();
 //                view.showFailMessage();

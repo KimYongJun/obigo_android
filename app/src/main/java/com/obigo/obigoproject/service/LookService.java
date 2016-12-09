@@ -1,6 +1,6 @@
 package com.obigo.obigoproject.service;
 
-import com.obigo.obigoproject.vo.User;
+import com.obigo.obigoproject.vo.UsersVO;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -9,7 +9,7 @@ import retrofit2.http.Query;
 public interface LookService {
 //    @GET("looks/feed/{id}") Call<List<Look>> getLookList(@Path("id") String userId, @Query("pageNum") int pageNum);
 //    @GET("looks/") Call<List<Look>> getMyLookList(@Query("userId") String userId, @Query("pageNum") int pageNum);
-    @GET("api/user") Call<User> getLook(@Query("id") String id);
+    @GET("api/user") Call<UsersVO> getLook(@Query("id") String id);
 //    @POST("looks/") Call<String> createLook(@Body Look look);
 //
 //    @POST("looks/{id}/like") Call<Look> postLike(@Path("id") String lookId, @Query("userId") String userId);
