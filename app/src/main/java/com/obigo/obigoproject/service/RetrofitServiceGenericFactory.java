@@ -5,6 +5,11 @@ import com.obigo.obigoproject.util.ConstantsUtil;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Created by O BI HE ROCK on 2016-12-07
+ * 김용준, 최현욱
+ */
+
 public class RetrofitServiceGenericFactory {
     public static <T> T createService(Class<T> serviceClass) {
         return getRetofitObject().create(serviceClass);

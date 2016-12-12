@@ -184,6 +184,7 @@ public class CarListActivity extends MenuActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(CarListActivity.this, CarListActivity.class);
+//                    intent.putExtra()
                     startActivity(intent);
                 }
             });

@@ -6,6 +6,11 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
+/**
+ * Created by O BI HE ROCK on 2016-12-12
+ * 김용준, 최현욱
+ */
+
 public interface LookService {
 //    @GET("looks/feed/{id}") Call<List<Look>> getLookList(@Path("id") String userId, @Query("pageNum") int pageNum);
 //    @GET("looks/") Call<List<Look>> getMyLookList(@Query("userId") String userId, @Query("pageNum") int pageNum);

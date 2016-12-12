@@ -14,6 +14,11 @@ import retrofit2.Response;
 //import style.dots.Dots.ui.fragments.LookFragment;
 //import style.dots.Dots.utils.PreferenceManager;
 
+/**
+ * Created by O BI HE ROCK on 2016-12-07
+ * 김용준, 최현욱
+ */
+
 public class LookPresenter {
     //    private LookFragment view;
     private LookService lookService;
