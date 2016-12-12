@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.obigo.obigoproject.R;
 import com.obigo.obigoproject.util.FlipperUtil;
 import com.viewpagerindicator.PageIndicator;
@@ -72,7 +73,9 @@ public class CarListActivity extends MenuActivity {
         };
 
         // 처음 이미지 고정 데이터 넣기
-        currentCarListImage.setImageResource(R.drawable.car_list_file3);
+        Glide.with(this).load("http://goo.gl/gEgYUd").into(currentCarListImage);
+
+//        currentCarListImage.setImageResource(R.drawable.car_list_file3);
 
         nextCarListImage.setVisibility(View.GONE);
         viewPager.setAdapter(new IntroAdapter());
