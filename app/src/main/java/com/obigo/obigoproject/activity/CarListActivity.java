@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.obigo.obigoproject.R;
+import com.obigo.obigoproject.presenter.UserVehiclePresenter;
 import com.obigo.obigoproject.util.FlipperUtil;
+import com.obigo.obigoproject.vo.UserVehicleList;
 import com.viewpagerindicator.PageIndicator;
 
 import butterknife.Bind;
@@ -48,6 +50,8 @@ public class CarListActivity extends MenuActivity {
     // 차량 이름 리스트
     private int[] carNameList;
 
+    private UserVehiclePresenter userVehiclePresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("CAR LIST");
@@ -71,6 +75,14 @@ public class CarListActivity extends MenuActivity {
                 R.string.car_list_app_overview_3st,
                 R.string.car_list_app_overview_4st
         };
+
+        userVehiclePresenter = new UserVehiclePresenter("ewqewq");
+
+        UserVehicleList userVehicleVOList = userVehiclePresenter.getUserVehicleList();
+
+//        for (UserVehicleVO userVehicleVO : userVehicleVOList) {
+//            Log.i("userVehicle : ", userVehicleVO.toString());
+//        }
 
         // 처음 이미지 고정 데이터 넣기
         Glide.with(this).load("http://goo.gl/gEgYUd").into(currentCarListImage);

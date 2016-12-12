@@ -5,26 +5,19 @@ package com.obigo.obigoproject.vo;
  * 김용준, 최현욱
  */
 
-public class UserVehicleVO {
+public class UserVehicleListVO {
     private String userId;
     private String modelCode;
     private String color;
     private String location;
     private String vin;
+    private int activeDtcCount;
     private String modelName;
     private String modelImage;
     private String detailImage;
-    private String modelYear;
+    private int modelYear;
     private String engine;
     private String mileage;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getModelCode() {
         return modelCode;
@@ -32,6 +25,14 @@ public class UserVehicleVO {
 
     public void setModelCode(String modelCode) {
         this.modelCode = modelCode;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getColor() {
@@ -42,6 +43,14 @@ public class UserVehicleVO {
         this.color = color;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public String getVin() {
         return vin;
     }
@@ -50,12 +59,12 @@ public class UserVehicleVO {
         this.vin = vin;
     }
 
-    public String getLocation() {
-        return location;
+    public int getActiveDtcCount() {
+        return activeDtcCount;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setActiveDtcCount(int activeDtcCount) {
+        this.activeDtcCount = activeDtcCount;
     }
 
     public String getModelName() {
@@ -82,11 +91,11 @@ public class UserVehicleVO {
         this.detailImage = detailImage;
     }
 
-    public String getModelYear() {
+    public int getModelYear() {
         return modelYear;
     }
 
-    public void setModelYear(String modelYear) {
+    public void setModelYear(int modelYear) {
         this.modelYear = modelYear;
     }
 
@@ -114,10 +123,11 @@ public class UserVehicleVO {
                 ", color='" + color + '\'' +
                 ", location='" + location + '\'' +
                 ", vin='" + vin + '\'' +
+                ", activeDtcCount=" + activeDtcCount +
                 ", modelName='" + modelName + '\'' +
                 ", modelImage='" + modelImage + '\'' +
                 ", detailImage='" + detailImage + '\'' +
-                ", modelYear='" + modelYear + '\'' +
+                ", modelYear=" + modelYear +
                 ", engine='" + engine + '\'' +
                 ", mileage='" + mileage + '\'' +
                 '}';

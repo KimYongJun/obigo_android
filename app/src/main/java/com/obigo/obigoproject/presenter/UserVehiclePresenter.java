@@ -4,9 +4,7 @@ import android.util.Log;
 
 import com.obigo.obigoproject.service.ServiceManager;
 import com.obigo.obigoproject.service.UserVehicleService;
-import com.obigo.obigoproject.vo.UserVehicleVO;
-
-import java.util.List;
+import com.obigo.obigoproject.vo.UserVehicleList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,28 +18,30 @@ import retrofit2.Response;
 public class UserVehiclePresenter {
     private UserVehicleService userVehicleService;
     private String userId;
-    private List<UserVehicleVO> userVehicleList;
+    private UserVehicleList userVehicleList;
 
     public UserVehiclePresenter(String userId) {
         this.userVehicleService = ServiceManager.getInstance().getUserVehicleService();
 
         // userId 변경 요망
         this.userId = "ewqewq";
+
     }
 
-    public void getUserVehicleList() {
+    public UserVehicleList getUserVehicleList() {
         Log.i("userId : ", userId);
-        userVehicleService.getUserVehicleList(userId).enqueue(new Callback<List<UserVehicleVO>>() {
+        userVehicleService.getUserVehicleList(userId).enqueue(new Callback<UserVehicleList>() {
             @Override
-            public void onResponse(Call<List<UserVehicleVO>> call, Response<List<UserVehicleVO>> response) {
+            public void onResponse(Call<UserVehicleList> call, Response<UserVehicleList> response) {
                 userVehicleList = response.body();
-                Log.i("user : ", userVehicleList.toString());
+                Log.i("user : ", response.body().toString());
             }
 
             @Override
-            public void onFailure(Call<List<UserVehicleVO>> call, Throwable t) {
+            public void onFailure(Call<UserVehicleList> call, Throwable t) {
                 Log.i("에러 : ", t.getMessage());
             }
         });
+        return null;
     }
 }
