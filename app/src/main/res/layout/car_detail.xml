@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="asdasdasdasd"
-            android:id="@+id/model_name"/>
+            android:id="@+id/detail_model_name"/>
     </LinearLayout>
 
     <LinearLayout
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="asdfadfsasdf"
-            android:id="@+id/model_code"
+            android:id="@+id/detail_model_code"
             />
     </LinearLayout>
 
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="asdfadfsasdf"
-            android:id="@+id/model_year"/>
+            android:id="@+id/detail_model_year"/>
     </LinearLayout>
 
     <LinearLayout
@@ -96,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="asdfadfsasdf"
-            android:id="@+id/engine"/>
+            android:id="@+id/detail_engine"/>
     </LinearLayout>
 
     <LinearLayout
@@ -117,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="asdfadfsasdf"
-            android:id="@+id/vin"/>
+            android:id="@+id/detail_vin"/>
     </LinearLayout>
 
     <LinearLayout
@@ -138,7 +138,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="asdfadfsasdf"
-            android:id="@+id/color"/>
+            android:id="@+id/detail_model_color"/>
     </LinearLayout>
 
     <LinearLayout
@@ -159,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="asdfadfsasdf"
-            android:id="@+id/location"/>
+            android:id="@+id/detail_location"/>
     </LinearLayout>
 
     <LinearLayout
@@ -180,7 +180,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="asdfadfsasdf"
-            android:id="@+id/mileage"/>
+            android:id="@+id/detail_mileage"/>
     </LinearLayout>
 
     <LinearLayout
@@ -201,7 +201,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="asdfadfsasdf"
-            android:id="@+id/active_dtc_count"/>
+            android:id="@+id/detail_active_dtc_count"/>
     </LinearLayout>
 
 

@@ -28,7 +28,9 @@
 
         <activity android:name=".activity.MenuActivity" />
         <activity android:name=".activity.CarListActivity"/>
+        <activity android:name=".activity.CarDetailActivity"/>
         <activity android:name=".activity.MessageActivity"/>
+        <activity android:name=".activity.MessageDetailActivity"/>
         <activity android:name=".activity.RequestActivity"/>
         <activity android:name=".activity.SettingsActivity"/>
 

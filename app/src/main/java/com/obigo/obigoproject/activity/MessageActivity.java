@@ -55,7 +55,7 @@ public class MessageActivity extends MenuActivity implements OnItemClickListener
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
         Message message = messageList.get(position);
-        Intent intent = new Intent(MessageActivity.this, MessageActivity.class); // 세부사항
+        Intent intent = new Intent(MessageActivity.this, MessageDetailActivity.class); // 세부사항
         Log.d("값 : ", message.toString());
         intent.putExtra("Message", message);
         startActivity(intent);

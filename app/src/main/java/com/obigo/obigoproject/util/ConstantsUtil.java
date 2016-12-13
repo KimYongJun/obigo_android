@@ -8,5 +8,6 @@ package com.obigo.obigoproject.util;
 
 public class ConstantsUtil {
     public static String SERVER_API_URL = "http://192.168.1.5:9999/obigoProject/";
+    public static String SERVER_IMAGE_URL = "api/image/";
 
 }

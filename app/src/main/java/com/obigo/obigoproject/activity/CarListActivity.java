@@ -152,6 +152,7 @@ public class CarListActivity extends MenuActivity {
     public void dispatchUserVehicleInfo(List<UserVehicleVO> userVehicleList) {
         this.userVehicleList = userVehicleList;
         initVariable();
+        System.out.println(userVehicleList.toString());
     }
 
     private void initVariable() {
@@ -173,7 +174,7 @@ public class CarListActivity extends MenuActivity {
             carNameList[i] = userVehicleList.get(i).getModelName();
         }
 
-        Glide.with(this).load("http://192.168.1.14/obigoProject/api/image/94587474604170img_visual_car.png").into(currentCarListImage);
+        Glide.with(this).load("http://192.168.1.14/obigoProject/api/image/vehicle/94587474604170img_visual_car.png").into(currentCarListImage);
         // 처음 이미지 고정 데이터 넣기
 //        currentCarListImage.setImageResource(R.drawable.car_list_file3);
 
@@ -199,15 +200,15 @@ public class CarListActivity extends MenuActivity {
 
         // 차량 이미지 마다 이름 넣기
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
+        public Object instantiateItem(ViewGroup container, final int position) {
             View view = View.inflate(container.getContext(), R.layout.car_list_name, null);
             TextView messageTextView = ButterKnife.findById(view, R.id.message_text);
 
             messageTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(CarListActivity.this, CarListActivity.class);
-//                    intent.putExtra()
+                    Intent intent = new Intent(CarListActivity.this, CarDetailActivity.class);
+                    intent.putExtra("carDetailInfo", userVehicleList.get(position));
                     startActivity(intent);
                 }
             });
