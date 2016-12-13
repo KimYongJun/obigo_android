@@ -1,6 +1,8 @@
 package com.obigo.obigoproject.service;
 
-import com.obigo.obigoproject.vo.UserVehicleList;
+import com.obigo.obigoproject.vo.UserVehicleVO;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,5 +15,5 @@ import retrofit2.http.Path;
 
 public interface UserVehicleService {
     @GET("api/uservehicle/{userid}")
-    Call<UserVehicleList> getUserVehicleList(@Path("userid") String userId);
+    Call<List<UserVehicleVO>> getUserVehicleList(@Path("userid") String userId);
 }

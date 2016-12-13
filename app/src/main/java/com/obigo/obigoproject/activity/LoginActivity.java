@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.obigo.obigoproject.R;
-import com.obigo.obigoproject.presenter.LookPresenter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,9 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText _passwordText;
     @Bind(R.id.btn_login)
     Button _loginButton;
-
-    // 2016-12-08 추가된 부분
-    private LookPresenter lookPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,10 +62,6 @@ public class LoginActivity extends AppCompatActivity {
         String userId = _idText.getText().toString();
         String userPassword = _passwordText.getText().toString();
 
-        // 2016-12-08 추가된 부분
-        lookPresenter = new LookPresenter(userId);
-        lookPresenter.getLook();
-
         /**
          * 로그인 인증을 위한 로직, Server로 데이터를 보냄
          * 여기서 Bundle check, update / registration_id를 등록함
@@ -95,7 +87,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
         finish();
-        startActivity(new Intent(getApplication(), CarListActivity.class));
+
+        // intent로 데이터를 보내줌
+        Intent intent = new Intent(this, CarListActivity.class);
+        startActivity(intent);
     }
 
     // 로그인 실패

@@ -16,8 +16,10 @@ import com.bumptech.glide.Glide;
 import com.obigo.obigoproject.R;
 import com.obigo.obigoproject.presenter.UserVehiclePresenter;
 import com.obigo.obigoproject.util.FlipperUtil;
-import com.obigo.obigoproject.vo.UserVehicleList;
+import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.viewpagerindicator.PageIndicator;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,58 +45,32 @@ public class CarListActivity extends MenuActivity {
     @Bind(R.id.next_icon_image)
     ImageView nextCarListImage;
     // 소유 차량 갯수
-    private int carListSize = 4;
+    private int carListSize;
     private int lastPage = 0;
-    // 이미지 배열
+    // 이미지 배열(추후 스트링으로 바꿀예정)
     private int[] icons;
     // 차량 이름 리스트
-    private int[] carNameList;
+    private String[] carNameList;
 
+    // 16-12-13 추가
     private UserVehiclePresenter userVehiclePresenter;
+    private List<UserVehicleVO> userVehicleList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTitle("CAR LIST");
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.car_list);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setTitle("CAR LIST");
         ButterKnife.bind(this);
 
-        // 이미지 파일 리스트 넣기
-        icons = new int[]{
-                R.drawable.car_list_file3,
-                R.drawable.car_list_file4,
-                R.drawable.car_list_file2,
-                R.drawable.car_list_file1
-        };
+        userVehiclePresenter = new UserVehiclePresenter(this, "ewqewq");
+        userVehiclePresenter.getUserVehicleList();
 
-        // 차량 이름 리스트 넣기
-        carNameList = new int[]{
-                R.string.car_list_app_overview_1st,
-                R.string.car_list_app_overview_2st,
-                R.string.car_list_app_overview_3st,
-                R.string.car_list_app_overview_4st
-        };
+        initAdapter();
+    }
 
-        userVehiclePresenter = new UserVehiclePresenter("ewqewq");
-
-        UserVehicleList userVehicleVOList = userVehiclePresenter.getUserVehicleList();
-
-//        for (UserVehicleVO userVehicleVO : userVehicleVOList) {
-//            Log.i("userVehicle : ", userVehicleVO.toString());
-//        }
-
-        // 처음 이미지 고정 데이터 넣기
-        Glide.with(this).load("http://goo.gl/gEgYUd").into(currentCarListImage);
-
-//        currentCarListImage.setImageResource(R.drawable.car_list_file3);
-
-        nextCarListImage.setVisibility(View.GONE);
-        viewPager.setAdapter(new IntroAdapter());
-        viewPager.setPageMargin(0);
-        viewPager.setOffscreenPageLimit(1);
-        indicator.setViewPager(viewPager);
-
+    private void initAdapter() {
         // image change
         indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -171,8 +147,43 @@ public class CarListActivity extends MenuActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
-
     }
+
+    public void dispatchUserVehicleInfo(List<UserVehicleVO> userVehicleList) {
+        this.userVehicleList = userVehicleList;
+        initVariable();
+    }
+
+    private void initVariable() {
+        // 이미지 파일 리스트 넣기
+        icons = new int[]{
+                R.drawable.car_list_file3,
+                R.drawable.car_list_file4,
+                R.drawable.car_list_file2,
+                R.drawable.car_list_file1
+        };
+
+        // 차량 갯수 대입
+        carListSize = userVehicleList.size();
+
+        // 차량 이름 리스트 넣기
+        carNameList = new String[userVehicleList.size()];
+
+        for (int i = 0; i < userVehicleList.size(); i++) {
+            carNameList[i] = userVehicleList.get(i).getModelName();
+        }
+
+        Glide.with(this).load("http://192.168.1.14/obigoProject/api/image/94587474604170img_visual_car.png").into(currentCarListImage);
+        // 처음 이미지 고정 데이터 넣기
+//        currentCarListImage.setImageResource(R.drawable.car_list_file3);
+
+        nextCarListImage.setVisibility(View.GONE);
+        viewPager.setAdapter(new IntroAdapter());
+        viewPager.setPageMargin(0);
+        viewPager.setOffscreenPageLimit(1);
+        indicator.setViewPager(viewPager);
+    }
+
 
     private class IntroAdapter extends PagerAdapter {
 
@@ -202,7 +213,7 @@ public class CarListActivity extends MenuActivity {
             });
 
             container.addView(view, 0);
-            messageTextView.setText(FlipperUtil.replaceTags(getString(carNameList[position]), getApplicationContext()));
+            messageTextView.setText(FlipperUtil.replaceTags(carNameList[position], getApplicationContext()));
             return view;
         }
 

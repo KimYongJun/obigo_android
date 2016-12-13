@@ -9,6 +9,7 @@ import retrofit2.http.Query;
 /**
  * Created by O BI HE ROCK on 2016-12-12
  * 김용준, 최현욱
+ * 아직 사용하지 않는 것 test 용
  */
 
 public interface LookService {

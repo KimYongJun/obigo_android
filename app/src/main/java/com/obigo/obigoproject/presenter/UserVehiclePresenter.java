@@ -2,9 +2,12 @@ package com.obigo.obigoproject.presenter;
 
 import android.util.Log;
 
+import com.obigo.obigoproject.activity.CarListActivity;
 import com.obigo.obigoproject.service.ServiceManager;
 import com.obigo.obigoproject.service.UserVehicleService;
-import com.obigo.obigoproject.vo.UserVehicleList;
+import com.obigo.obigoproject.vo.UserVehicleVO;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,31 +20,35 @@ import retrofit2.Response;
 
 public class UserVehiclePresenter {
     private UserVehicleService userVehicleService;
+    private CarListActivity carListActivity;
     private String userId;
-    private UserVehicleList userVehicleList;
+    private List<UserVehicleVO> userVehicleList;
 
-    public UserVehiclePresenter(String userId) {
+    public UserVehiclePresenter(CarListActivity carListActivity, String userId) {
+        this.carListActivity = carListActivity;
         this.userVehicleService = ServiceManager.getInstance().getUserVehicleService();
-
-        // userId 변경 요망
-        this.userId = "ewqewq";
-
+        this.userId = userId;
     }
 
-    public UserVehicleList getUserVehicleList() {
+    public void getUserVehicleList() {
         Log.i("userId : ", userId);
-        userVehicleService.getUserVehicleList(userId).enqueue(new Callback<UserVehicleList>() {
+        Call<List<UserVehicleVO>> call = userVehicleService.getUserVehicleList(userId);
+        call.enqueue(new Callback<List<UserVehicleVO>>() {
             @Override
-            public void onResponse(Call<UserVehicleList> call, Response<UserVehicleList> response) {
-                userVehicleList = response.body();
-                Log.i("user : ", response.body().toString());
-            }
+            public void onResponse(Call<List<UserVehicleVO>> call, Response<List<UserVehicleVO>> response) {
+                if (response.isSuccessful()) {
+                    userVehicleList = response.body();
+                    Log.i("user : ", UserVehiclePresenter.this.userVehicleList.toString());
+                    carListActivity.dispatchUserVehicleInfo(userVehicleList);
+                } else {
+                    Log.i("error : ", response.errorBody().toString());
+                }
 
+            }
             @Override
-            public void onFailure(Call<UserVehicleList> call, Throwable t) {
+            public void onFailure(Call<List<UserVehicleVO>> call, Throwable t) {
                 Log.i("에러 : ", t.getMessage());
             }
         });
-        return null;
     }
 }

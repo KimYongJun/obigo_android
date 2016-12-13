@@ -1,11 +1,13 @@
 package com.obigo.obigoproject.vo;
 
+import java.io.Serializable;
+
 /**
  * Created by O BI HE ROCK on 2016-12-07
  * 김용준, 최현욱
  */
 
-public class UserVehicleListVO {
+public class UserVehicleVO implements Serializable {
     private String userId;
     private String modelCode;
     private String color;
@@ -132,4 +134,5 @@ public class UserVehicleListVO {
                 ", mileage='" + mileage + '\'' +
                 '}';
     }
+
 }
