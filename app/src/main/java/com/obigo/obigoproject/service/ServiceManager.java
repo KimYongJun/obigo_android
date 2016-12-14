@@ -7,16 +7,10 @@ package com.obigo.obigoproject.service;
 
 public enum ServiceManager {
     INSTANCE;
-    private LookService lookService;
     private UserVehicleService userVehicleService;
 
     ServiceManager() {
-        lookService = RetrofitServiceGenericFactory.createService(LookService.class);
         userVehicleService = RetrofitServiceGenericFactory.createService(UserVehicleService.class);
-    }
-
-    public LookService getLookService() {
-        return lookService;
     }
 
     public UserVehicleService getUserVehicleService() {
