@@ -1,5 +1,10 @@
 package com.obigo.obigoproject.vo;
 
+/**
+ * Created by O BI HE ROCK on 2016-12-14
+ * 김용준, 최현욱
+ */
+
 public class UsersVO {
     private String userId;
     private String password;

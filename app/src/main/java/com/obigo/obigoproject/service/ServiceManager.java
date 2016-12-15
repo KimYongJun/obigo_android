@@ -8,13 +8,19 @@ package com.obigo.obigoproject.service;
 public enum ServiceManager {
     INSTANCE;
     private UserVehicleService userVehicleService;
+    private UserRequestService userRequestService;
 
     ServiceManager() {
         userVehicleService = RetrofitServiceGenericFactory.createService(UserVehicleService.class);
+        userRequestService = RetrofitServiceGenericFactory.createService(UserRequestService.class);
     }
 
     public UserVehicleService getUserVehicleService() {
         return userVehicleService;
+    }
+
+    public UserRequestService getUserRequestService() {
+        return userRequestService;
     }
 
     public static ServiceManager getInstance() {

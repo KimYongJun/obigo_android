@@ -14,6 +14,6 @@ import retrofit2.http.Path;
  */
 
 public interface UserVehicleService {
-    @GET("api/uservehicle/{userid}")
+    @GET("uservehicle/{userid}")
     Call<List<UserVehicleVO>> getUserVehicleList(@Path("userid") String userId);
 }

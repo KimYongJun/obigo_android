@@ -42,7 +42,7 @@ public class MessageActivity extends MenuActivity implements OnItemClickListener
 
         Date date = new Date();
 
-        for (int i = 0; i <= 20; i++) {
+        for (int i = 0; i <= 25; i++) {
             messageList.add(new Message(1, "이것은 오비고 테스트입니다! 이것은 오비고 테스트입니다!이것은 오비고 테스트입니다!", "이것은 오비고 content입니다!!! 이것은 오비고 content입니다!!!" +
                     " 이것은 오비고 content입니다!!! 이것은 오비고 content입니다!!!", date.toString(), "@drawable/message_test"));
         }

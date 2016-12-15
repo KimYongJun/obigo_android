@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.gregacucnik.EditTextView;
 import com.obigo.obigoproject.R;
+import com.obigo.obigoproject.presenter.UserRequestPresenter;
+import com.obigo.obigoproject.vo.UserRequestVO;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,13 +42,13 @@ public class RequestActivity extends MenuActivity {
     @Bind(R.id.sendBtn)
     Button send;
 
+    private UserRequestPresenter userRequestPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle("REQUEST");
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.request);
-
         final LinearLayout llContainer = (LinearLayout) findViewById(R.id.car_request);
 
         llContainer.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +59,8 @@ public class RequestActivity extends MenuActivity {
         });
 
         ButterKnife.bind(this);
+
+        userRequestPresenter = new UserRequestPresenter(this);
     }
 
     @OnClick(R.id.resetBtn)
@@ -73,6 +77,10 @@ public class RequestActivity extends MenuActivity {
                 "code : " + code.getText().toString() + " , " + "color : " + color.getText().toString() +
                         " , " + "location : " + location.getText().toString() + " , " + "vin : " +
                         vin.getText().toString(), Toast.LENGTH_SHORT).show();
+
+        userRequestPresenter.insertUserRequest(new UserRequestVO("ewqewq", code.getText().toString(), color.getText().toString(),
+                location.getText().toString(), vin.getText().toString()));
+
     }
 
 

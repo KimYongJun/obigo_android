@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.ImageLoadingListener;
 import com.obigo.obigoproject.R;
+import com.obigo.obigoproject.util.ConstantsUtil;
 import com.obigo.obigoproject.vo.Message;
 
 import java.util.List;
@@ -37,18 +38,17 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
     private DisplayImageOptions options;
     ImageLoader imageLoader;
 
-    public MessageListAdapter(Activity act, int resource, List<Message> messageList) {
-        super(act, resource, messageList);
-        this.activity = act;
+    public MessageListAdapter(Activity activity, int resource, List<Message> messageList) {
+        super(activity, resource, messageList);
+        this.activity = activity;
         this.row = resource;
         this.messageList = messageList;
 
         options = new DisplayImageOptions.Builder()
-                .showStubImage(R.drawable.message_test)
+                .showStubImage(R.drawable.profile)
                 .showImageForEmptyUrl(R.drawable.profile).cacheInMemory()
                 .cacheOnDisc().build();
         imageLoader = ImageLoader.getInstance();
-
     }
 
     @Override
@@ -96,12 +96,11 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
 
                 imageLoader.init(ImageLoaderConfiguration
                         .createDefault(activity));
-                imageLoader.displayImage(objBean.getUploadFile(), holder.imgView,
+                imageLoader.displayImage(ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_VEHICLE_IMAGE_URL + "5530854478867_img_visual_car.png", holder.imgView,
                         options, new ImageLoadingListener() {
                             @Override
                             public void onLoadingComplete() {
                                 pbar.setVisibility(View.INVISIBLE);
-
                             }
 
                             @Override
@@ -112,7 +111,6 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
                             @Override
                             public void onLoadingStarted() {
                                 pbar.setVisibility(View.VISIBLE);
-
                             }
                         });
 

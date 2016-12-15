@@ -45,7 +45,17 @@ public class CarDetailActivity extends AppCompatActivity {
     }
 
     private void initVariable() {
-        System.out.println("http://192.168.1.14/obigoProject/api/image/vehicle/94587474604170img_visual_car.png");
         Glide.with(this).load("http://192.168.1.14/obigoProject/api/image/vehicle/94587474604170img_visual_car.png").into(carDetailImage);
+
+        modelNameTextView.setText(userVehicleVO.getModelName());
+        modelCodeTextView.setText(userVehicleVO.getModelCode());
+        modelYearTextView.setText(Integer.toString(userVehicleVO.getModelYear()));
+        engineTextView.setText(userVehicleVO.getEngine());
+        vinTextView.setText(userVehicleVO.getVin());
+        colorTextView.setText(userVehicleVO.getColor());
+        locationTextView.setText(userVehicleVO.getLocation());
+        mileageTextView.setText(userVehicleVO.getMileage());
+        activeDtcCountTextView.setText(Integer.toString(userVehicleVO.getActiveDtcCount()));
+
     }
 }
