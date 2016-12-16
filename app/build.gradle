@@ -37,16 +37,14 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:24.2.0'
 
-    // login page maven
+    // butterknife page
     compile 'com.jakewharton:butterknife:7.0.1'
-    // view flipper maven
+    // view flipper
     compile 'com.viewpagerindicator:library:2.4.1'
-    // request input maven
+    // request input
     compile 'com.gregacucnik:edittextview:1.6'
-    // push message library
-//    compile files('libs/universal-image-loader-1.2.1.jar')
-    compile files('libs/universal-image-loader-1.9.5.jar')
-//    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    // image loader
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
     // retrofit2
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
