@@ -2,18 +2,15 @@ package com.obigo.obigoproject.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.obigo.obigoproject.R;
-import com.obigo.obigoproject.adapter.MessageListAdapter;
-import com.obigo.obigoproject.vo.Message;
+import com.obigo.obigoproject.presenter.MessagePresenter;
+import com.obigo.obigoproject.vo.MessageVO;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,10 +21,12 @@ import java.util.List;
  */
 
 public class MessageActivity extends MenuActivity implements OnItemClickListener {
-    // 메시지 List
-    List<Message> messageList;
+
     // 메지시 리스트 뷰
     ListView listView;
+    //16-12-14 추가
+    private MessagePresenter messagePresenter;
+    private List<MessageVO> messageList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,32 +37,21 @@ public class MessageActivity extends MenuActivity implements OnItemClickListener
         listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(this);
 
-        messageList = new ArrayList<Message>();
+        messagePresenter = new MessagePresenter(this, "ssung", listView);
+        messagePresenter.getMessageList();
+    }
 
-        Date date = new Date();
 
-        for (int i = 0; i <= 25; i++) {
-            messageList.add(new Message(1, "이것은 오비고 테스트입니다! 이것은 오비고 테스트입니다!이것은 오비고 테스트입니다!", "이것은 오비고 content입니다!!! 이것은 오비고 content입니다!!!" +
-                    " 이것은 오비고 content입니다!!! 이것은 오비고 content입니다!!!", date.toString(), "@drawable/message_test"));
-        }
-
-        setAdapterToListview();
-
+    public void dispatchMessageInfo(List<MessageVO> messageList) {
+        this.messageList = messageList;
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
-        Message message = messageList.get(position);
-        Intent intent = new Intent(MessageActivity.this, MessageDetailActivity.class); // 세부사항
-        Log.d("값 : ", message.toString());
-        intent.putExtra("Message", message);
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        MessageVO message = messageList.get(position);
+        // 세부사항 데이터 전달
+        Intent intent = new Intent(MessageActivity.this, MessageDetailActivity.class);
+        intent.putExtra("MessageDetailInfo", message);
         startActivity(intent);
-    }
-
-    public void setAdapterToListview() {
-        MessageListAdapter objAdapter = new MessageListAdapter(MessageActivity.this,
-                R.layout.message_item, messageList);
-        listView.setAdapter(objAdapter);
     }
 }

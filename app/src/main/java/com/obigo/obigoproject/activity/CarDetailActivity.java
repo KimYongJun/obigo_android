@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.obigo.obigoproject.R;
+import com.obigo.obigoproject.util.ConstantsUtil;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 
 import butterknife.Bind;
@@ -45,7 +46,7 @@ public class CarDetailActivity extends AppCompatActivity {
     }
 
     private void initVariable() {
-        Glide.with(this).load("http://192.168.1.14/obigoProject/api/image/vehicle/94587474604170img_visual_car.png").into(carDetailImage);
+        Glide.with(this).load(ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_VEHICLE_IMAGE_URL).into(carDetailImage);
 
         modelNameTextView.setText(userVehicleVO.getModelName());
         modelCodeTextView.setText(userVehicleVO.getModelCode());

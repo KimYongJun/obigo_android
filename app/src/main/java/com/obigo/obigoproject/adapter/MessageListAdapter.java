@@ -2,6 +2,7 @@ package com.obigo.obigoproject.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,41 +15,45 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.obigo.obigoproject.R;
 import com.obigo.obigoproject.util.ConstantsUtil;
-import com.obigo.obigoproject.vo.Message;
+import com.obigo.obigoproject.vo.MessageVO;
 
 import java.util.List;
 
 /**
- * Created by O BI HE ROCK on 2016-12-06
+ * Created by O BI HE ROCK on 2016-12-14
  * 김용준, 최현욱
- * message list 정리 - 아직 @+id 미구현
- * date type 정리
- * image loader 구현 필요
  */
 
-public class MessageListAdapter extends ArrayAdapter<Message> {
+public class MessageListAdapter extends ArrayAdapter<MessageVO> {
 
     private Activity activity;
-    private List<Message> messageList;
-    private Message objBean;
+    private List<MessageVO> messageList;
+    private MessageVO messageVO;
     private int row;
     private DisplayImageOptions options;
-    ImageLoader imageLoader;
+    private ImageLoader imageLoader;
 
-    public MessageListAdapter(Activity activity, int resource, List<Message> messageList) {
-        super(activity, resource, messageList);
-        this.activity = activity;
+    public MessageListAdapter(Activity act, int resource, List<MessageVO> messageList) {
+        super(act, resource, messageList);
+        this.activity = act;
         this.row = resource;
         this.messageList = messageList;
 
         options = new DisplayImageOptions.Builder()
-                .showStubImage(R.drawable.profile)
-                .showImageForEmptyUrl(R.drawable.profile).cacheInMemory()
-                .cacheOnDisc().build();
+                .showImageOnLoading(R.drawable.message_stub)
+                .showImageForEmptyUri(R.drawable.message_empty)
+                .showImageOnFail(R.drawable.message_error)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .build();
+
         imageLoader = ImageLoader.getInstance();
+
     }
 
     @Override
@@ -69,64 +74,68 @@ public class MessageListAdapter extends ArrayAdapter<Message> {
         if ((messageList == null) || ((position + 1) > messageList.size()))
             return view;
 
-        objBean = messageList.get(position);
+        messageVO = messageList.get(position);
 
-        holder.tvTitle = (TextView) view.findViewById(R.id.tvtitle);
-        holder.tvDesc = (TextView) view.findViewById(R.id.tvdesc);
-        holder.tvDate = (TextView) view.findViewById(R.id.tvdate);
-        holder.imgView = (ImageView) view.findViewById(R.id.image);
-        holder.pbar = (ProgressBar) view.findViewById(R.id.pbar);
+        holder.messageTitle = (TextView) view.findViewById(R.id.message_title);
+        holder.messageContent = (TextView) view.findViewById(R.id.message_content);
+        holder.messageDate = (TextView) view.findViewById(R.id.message_date);
+        holder.messageImage = (ImageView) view.findViewById(R.id.message_image);
+        holder.messageBar = (ProgressBar) view.findViewById(R.id.message_bar);
 
-        if (holder.tvTitle != null && null != objBean.getTitle()
-                && objBean.getTitle().trim().length() > 0) {
-            holder.tvTitle.setText(Html.fromHtml(objBean.getTitle()));
+        if (holder.messageTitle != null && null != messageVO.getTitle()
+                && messageVO.getTitle().trim().length() > 0) {
+            holder.messageTitle.setText(Html.fromHtml(messageVO.getTitle()));
         }
-        if (holder.tvDesc != null && null != objBean.getContent()
-                && objBean.getContent().trim().length() > 0) {
-            holder.tvDesc.setText(Html.fromHtml(objBean.getContent()));
+        if (holder.messageContent != null && null != messageVO.getContent()
+                && messageVO.getContent().trim().length() > 0) {
+            holder.messageContent.setText(Html.fromHtml(messageVO.getContent()));
         }
-        if (holder.tvDate != null && null != objBean.getSendDate()
-                && objBean.getSendDate().trim().length() > 0) {
-            holder.tvDate.setText(Html.fromHtml(objBean.getSendDate()));
+        if (holder.messageDate != null && null != messageVO.getSendDate()
+                && messageVO.getSendDate().trim().length() > 0) {
+            holder.messageDate.setText(Html.fromHtml(messageVO.getSendDate()));
         }
-        if (holder.imgView != null) {
-            if (null != objBean.getUploadFile()
-                    && objBean.getUploadFile().trim().length() > 0) {
-                final ProgressBar pbar = holder.pbar;
+        if (holder.messageImage != null) {
+            if (null != messageVO.getUploadFile()
+                    && messageVO.getUploadFile().trim().length() > 0) {
+                final ProgressBar pbar = holder.messageBar;
 
                 imageLoader.init(ImageLoaderConfiguration
                         .createDefault(activity));
-                imageLoader.displayImage(ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_VEHICLE_IMAGE_URL + "5530854478867_img_visual_car.png", holder.imgView,
-                        options, new ImageLoadingListener() {
-                            @Override
-                            public void onLoadingComplete() {
-                                pbar.setVisibility(View.INVISIBLE);
-                            }
+                imageLoader.displayImage(ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_MESSAGE_IMAGE_URL
+                        + messageList.get(position).getUploadFile(), holder.messageImage, options, new ImageLoadingListener() {
+                    @Override
+                    public void onLoadingStarted(String imageUri, View view) {
+                        pbar.setVisibility(View.INVISIBLE);
+                    }
 
-                            @Override
-                            public void onLoadingFailed() {
-                                pbar.setVisibility(View.INVISIBLE);
-                            }
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        pbar.setVisibility(View.INVISIBLE);
+                    }
 
-                            @Override
-                            public void onLoadingStarted() {
-                                pbar.setVisibility(View.VISIBLE);
-                            }
-                        });
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        pbar.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onLoadingCancelled(String imageUri, View view) {
+                        pbar.setVisibility(View.INVISIBLE);
+                    }
+                });
 
             } else {
-                holder.imgView.setImageResource(R.mipmap.ic_launcher);
+                holder.messageImage.setImageResource(R.mipmap.ic_launcher);
             }
         }
-
         return view;
     }
 
-    public class ViewHolder {
+    class ViewHolder {
 
-        public TextView tvTitle, tvDesc, tvDate;
-        private ImageView imgView;
-        private ProgressBar pbar;
+        public TextView messageTitle, messageContent, messageDate;
+        public ImageView messageImage;
+        public ProgressBar messageBar;
 
     }
 

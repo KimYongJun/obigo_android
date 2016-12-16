@@ -9,10 +9,12 @@ public enum ServiceManager {
     INSTANCE;
     private UserVehicleService userVehicleService;
     private UserRequestService userRequestService;
+    private MessageService messageService;
 
     ServiceManager() {
         userVehicleService = RetrofitServiceGenericFactory.createService(UserVehicleService.class);
         userRequestService = RetrofitServiceGenericFactory.createService(UserRequestService.class);
+        messageService = RetrofitServiceGenericFactory.createService(MessageService.class);
     }
 
     public UserVehicleService getUserVehicleService() {
@@ -21,6 +23,10 @@ public enum ServiceManager {
 
     public UserRequestService getUserRequestService() {
         return userRequestService;
+    }
+
+    public MessageService getMessageService() {
+        return messageService;
     }
 
     public static ServiceManager getInstance() {

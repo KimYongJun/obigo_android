@@ -77,8 +77,7 @@ public class RequestActivity extends MenuActivity {
                 "code : " + code.getText().toString() + " , " + "color : " + color.getText().toString() +
                         " , " + "location : " + location.getText().toString() + " , " + "vin : " +
                         vin.getText().toString(), Toast.LENGTH_SHORT).show();
-
-        userRequestPresenter.insertUserRequest(new UserRequestVO("ewqewq", code.getText().toString(), color.getText().toString(),
+        userRequestPresenter.insertUserRequest(new UserRequestVO("ssung", code.getText().toString(), color.getText().toString(),
                 location.getText().toString(), vin.getText().toString()));
 
     }

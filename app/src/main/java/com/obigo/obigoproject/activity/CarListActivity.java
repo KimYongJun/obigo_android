@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.obigo.obigoproject.R;
 import com.obigo.obigoproject.presenter.UserVehiclePresenter;
+import com.obigo.obigoproject.util.ConstantsUtil;
 import com.obigo.obigoproject.util.FlipperUtil;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.viewpagerindicator.PageIndicator;
@@ -64,7 +65,7 @@ public class CarListActivity extends MenuActivity {
         setTitle("CAR LIST");
         ButterKnife.bind(this);
 
-        userVehiclePresenter = new UserVehiclePresenter(this, "ewqewq");
+        userVehiclePresenter = new UserVehiclePresenter(this, "ssung");
         userVehiclePresenter.getUserVehicleList();
 
         initAdapter();
@@ -174,9 +175,12 @@ public class CarListActivity extends MenuActivity {
             carNameList[i] = userVehicleList.get(i).getModelName();
         }
 
-        Glide.with(this).load("http://192.168.1.14/obigoProject/api/image/vehicle/94587474604170img_visual_car.png").into(currentCarListImage);
-        // 처음 이미지 고정 데이터 넣기
-//        currentCarListImage.setImageResource(R.drawable.car_list_file3);
+        if(userVehicleList.size() > 0) {
+            System.out.println(ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_VEHICLE_IMAGE_URL + userVehicleList.get(0).getModelImage());
+
+            // 처음 이미지 고정 데이터 넣기
+            Glide.with(this).load(ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_VEHICLE_IMAGE_URL + userVehicleList.get(0).getModelImage()).into(currentCarListImage);
+        }
 
         nextCarListImage.setVisibility(View.GONE);
         viewPager.setAdapter(new IntroAdapter());
