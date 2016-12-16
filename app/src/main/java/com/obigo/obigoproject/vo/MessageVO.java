@@ -3,7 +3,9 @@ package com.obigo.obigoproject.vo;
 import java.io.Serializable;
 
 /**
- * Created by BIT on 2016-12-14.
+ * Created by O BI HE ROCK on 2016-12-16
+ * 김용준, 최현욱
+ * 메시지 정보
  */
 
 public class MessageVO implements Serializable {

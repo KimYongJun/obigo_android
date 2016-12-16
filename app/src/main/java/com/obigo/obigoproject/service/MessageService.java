@@ -15,6 +15,7 @@ import retrofit2.http.Path;
  */
 
 public interface MessageService {
+    // 사용자 메시지 리스트 요청 - 데이터는 path로 전송 userid
     @GET("message/{userid}")
     Call<List<MessageVO>> getMessageList(@Path("userid") String userId);
 }

@@ -5,6 +5,7 @@ import java.io.Serializable;
 /**
  * Created by O BI HE ROCK on 2016-12-07
  * 김용준, 최현욱
+ * 사용자 차량 정보
  */
 
 public class UserVehicleVO implements Serializable {

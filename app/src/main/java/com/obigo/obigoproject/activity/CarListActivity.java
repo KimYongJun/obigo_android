@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
  * Created by O BI HE ROCK on 2016-11-28
  * 김용준, 최현욱
  * 차량 리스트를 보여주는 페이지 - user_id
- * API : /api/carlist
+ * API : /api/uservehicle
  * model_name, model_image, vin
  */
 

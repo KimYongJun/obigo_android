@@ -3,6 +3,7 @@ package com.obigo.obigoproject.vo;
 /**
  * Created by O BI HE ROCK on 2016-12-14
  * 김용준, 최현욱
+ * 사용자 요청 정보
  */
 
 public class UserRequestVO {
