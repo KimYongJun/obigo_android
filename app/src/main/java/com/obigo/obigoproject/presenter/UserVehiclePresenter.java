@@ -45,6 +45,8 @@ public class UserVehiclePresenter {
                 }
 
             }
+
+            // 서버와 접속 실패
             @Override
             public void onFailure(Call<List<UserVehicleVO>> call, Throwable t) {
                 Log.i("에러 : ", t.getMessage());

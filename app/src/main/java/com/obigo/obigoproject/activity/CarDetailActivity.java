@@ -58,7 +58,10 @@ public class CarDetailActivity extends AppCompatActivity {
         initVariable();
     }
 
+
+    // 전달 받은 차량정보를 입력
     private void initVariable() {
+        // Glide로 이미지를 받음
         Glide.with(this).load(ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_VEHICLE_IMAGE_URL + userVehicleVO.getModelImage()).into(carDetailImage);
 
         modelNameTextView.setText(userVehicleVO.getModelName());

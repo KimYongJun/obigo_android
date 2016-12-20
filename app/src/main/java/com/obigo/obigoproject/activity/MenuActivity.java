@@ -149,11 +149,12 @@ public class MenuActivity extends AppCompatActivity implements
                 .init(boomMenuButtonInActionBar);
     }
 
-
+    // 버튼 BoomType 조정
     private BoomType getBoomType() {
         return BoomType.PARABOLA;
     }
 
+    // 버튼 모양 조정
     private PlaceType getPlaceType() {
         return PlaceType.CIRCLE_4_1;
     }
@@ -177,6 +178,10 @@ public class MenuActivity extends AppCompatActivity implements
         return colors;
     }
 
+    /**
+     * 각 페이지로 이동
+     * CarListActivity, MessageActivity, RequestActivity, SettingsActivity 이동
+     */
     @Override
     public void onClick(int buttonIndex) {
         switch (buttonIndex) {
@@ -195,6 +200,7 @@ public class MenuActivity extends AppCompatActivity implements
         }
     }
 
+    // 뒤로가기 버튼 클릭시 메뉴가 사라지는 기능
     @Override
     public void onBackPressed() {
         if (boomMenuButton.isClosed()

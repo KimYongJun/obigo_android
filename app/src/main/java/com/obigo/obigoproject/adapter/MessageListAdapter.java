@@ -29,7 +29,6 @@ import java.util.List;
  */
 
 public class MessageListAdapter extends ArrayAdapter<MessageVO> {
-
     private Activity activity;
     private List<MessageVO> messageList;
     private MessageVO messageVO;
@@ -132,11 +131,9 @@ public class MessageListAdapter extends ArrayAdapter<MessageVO> {
     }
 
     class ViewHolder {
-
         public TextView messageTitle, messageContent, messageDate;
         public ImageView messageImage;
         public ProgressBar messageBar;
-
     }
 
 }

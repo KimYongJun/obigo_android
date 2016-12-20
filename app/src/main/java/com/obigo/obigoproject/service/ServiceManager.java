@@ -8,6 +8,8 @@ package com.obigo.obigoproject.service;
 
 public enum ServiceManager {
     INSTANCE;
+    // 유저 서비스
+    private UserService userService;
     // 차량 서비스
     private UserVehicleService userVehicleService;
     // 요청 서비스
@@ -16,9 +18,14 @@ public enum ServiceManager {
     private MessageService messageService;
 
     ServiceManager() {
+        userService = RetrofitServiceGenericFactory.createService(UserService.class);
         userVehicleService = RetrofitServiceGenericFactory.createService(UserVehicleService.class);
         userRequestService = RetrofitServiceGenericFactory.createService(UserRequestService.class);
         messageService = RetrofitServiceGenericFactory.createService(MessageService.class);
+    }
+
+    public UserService getUserService() {
+        return userService;
     }
 
     public UserVehicleService getUserVehicleService() {

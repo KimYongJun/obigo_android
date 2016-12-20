@@ -21,18 +21,18 @@ import java.util.List;
  */
 
 public class MessageActivity extends MenuActivity implements OnItemClickListener {
-
     // 메지시 리스트 뷰
     ListView listView;
-    //16-12-14 추가
+    // 메시지 요청
     private MessagePresenter messagePresenter;
+    // 메시지 리스트
     private List<MessageVO> messageList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setTitle("MESSAGE");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.message_list);
+        setTitle("MESSAGE");
 
         listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(this);
@@ -46,11 +46,16 @@ public class MessageActivity extends MenuActivity implements OnItemClickListener
         this.messageList = messageList;
     }
 
+    // 특정 메시지 클릭
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // 특정 메시지를 꺼내옴
         MessageVO message = messageList.get(position);
+
         // 세부사항 데이터 전달
         Intent intent = new Intent(MessageActivity.this, MessageDetailActivity.class);
+
+        // 메시지 객체 전달
         intent.putExtra("MessageDetailInfo", message);
         startActivity(intent);
     }

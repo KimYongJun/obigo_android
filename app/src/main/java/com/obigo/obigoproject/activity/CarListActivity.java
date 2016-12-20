@@ -29,14 +29,15 @@ import butterknife.ButterKnife;
  * Created by O BI HE ROCK on 2016-11-28
  * 김용준, 최현욱
  * 차량 리스트를 보여주는 페이지 - user_id
- * API : /api/uservehicle
+ * API : /api/carlist
  * model_name, model_image, vin
  */
 
 public class CarListActivity extends MenuActivity {
-
+    // view pager
     @Bind(R.id.car_list_view)
     ViewPager viewPager;
+    //
     @Bind(R.id.indicator)
     PageIndicator indicator;
     // 차량 현재 이미지
@@ -47,14 +48,16 @@ public class CarListActivity extends MenuActivity {
     ImageView nextCarListImage;
     // 소유 차량 갯수
     private int carListSize;
+    // 페이지 위치 지정
     private int lastPage = 0;
     // 이미지 배열(추후 스트링으로 바꿀예정)
-    private int[] icons;
+    private String[] icons;
     // 차량 이름 리스트
     private String[] carNameList;
 
-    // 16-12-13 추가
+    // Retrofit 차량 요청
     private UserVehiclePresenter userVehiclePresenter;
+    // 차량 리스트
     private List<UserVehicleVO> userVehicleList;
 
     @Override
@@ -65,13 +68,14 @@ public class CarListActivity extends MenuActivity {
         setTitle("CAR LIST");
         ButterKnife.bind(this);
 
+        // 차량 요청 객체 생성
         userVehiclePresenter = new UserVehiclePresenter(this, "ssung");
         userVehiclePresenter.getUserVehicleList();
 
         initAdapter();
     }
 
-    private void initAdapter() {
+    protected void initAdapter() {
         // image change
         indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -92,7 +96,9 @@ public class CarListActivity extends MenuActivity {
                     }
 
                     fadeinImage.bringToFront();
-                    fadeinImage.setImageResource(icons[lastPage]);
+                    // 이미지 넣기
+                    Glide.with(getApplicationContext()).load(ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_VEHICLE_IMAGE_URL +
+                            userVehicleList.get(lastPage).getModelImage()).into(fadeinImage);
                     fadeinImage.clearAnimation();
                     fadeoutImage.clearAnimation();
 
@@ -153,33 +159,31 @@ public class CarListActivity extends MenuActivity {
     public void dispatchUserVehicleInfo(List<UserVehicleVO> userVehicleList) {
         this.userVehicleList = userVehicleList;
         initVariable();
-        System.out.println(userVehicleList.toString());
     }
 
     private void initVariable() {
+        icons = new String[userVehicleList.size()];
+
         // 이미지 파일 리스트 넣기
-        icons = new int[]{
-                R.drawable.car_list_file3,
-                R.drawable.car_list_file4,
-                R.drawable.car_list_file2,
-                R.drawable.car_list_file1
-        };
+        for (int i = 0; i < userVehicleList.size(); i++) {
+            icons[i] = ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_VEHICLE_IMAGE_URL +
+                    userVehicleList.get(i).getModelImage();
+        }
 
         // 차량 갯수 대입
         carListSize = userVehicleList.size();
 
-        // 차량 이름 리스트 넣기
         carNameList = new String[userVehicleList.size()];
 
+        // 차량 이름 리스트 넣기
         for (int i = 0; i < userVehicleList.size(); i++) {
             carNameList[i] = userVehicleList.get(i).getModelName();
         }
 
+        // userVehicleList data가 있을 경우 처음 이미지 고정 데이터 넣기
         if(userVehicleList.size() > 0) {
-            System.out.println(ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_VEHICLE_IMAGE_URL + userVehicleList.get(0).getModelImage());
-
-            // 처음 이미지 고정 데이터 넣기
-            Glide.with(this).load(ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_VEHICLE_IMAGE_URL + userVehicleList.get(0).getModelImage()).into(currentCarListImage);
+            Glide.with(this).load(ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_VEHICLE_IMAGE_URL
+                    + userVehicleList.get(0).getModelImage()).into(currentCarListImage);
         }
 
         nextCarListImage.setVisibility(View.GONE);

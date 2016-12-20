@@ -38,9 +38,11 @@ public class UserRequestPresenter {
                 }
 
             }
+
+            // 서버와 접속 실패
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Log.i("에러 : ", t.getMessage());
+                Log.e("에러 : ", t.getMessage());
             }
         });
     }

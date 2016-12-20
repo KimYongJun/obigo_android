@@ -19,14 +19,18 @@ import retrofit2.Response;
 /**
  * Created by O BI HE ROCK on 2016-12-14
  * 김용준, 최현욱
+ * 모든 메시지 정보를 받음
  */
 
 public class MessagePresenter {
     private ListView listView;
-    private MessageListAdapter objAdapter;
+    private MessageListAdapter messageListAdapter;
+    // 메시지 리스트 요청
     private MessageService messageService;
     private MessageActivity messageActivity;
+    // 메시지 정보
     private List<MessageVO> messageList;
+    // 사용자 정보
     private String userId;
 
     public MessagePresenter(MessageActivity messageActivity, String userId, ListView listView) {
@@ -36,6 +40,7 @@ public class MessagePresenter {
         this.userId = userId;
     }
 
+    // 사용자 메시지 리스트 요청
     public void getMessageList() {
         Log.i("userId  : ", userId);
         Call<List<MessageVO>> call = messageService.getMessageList(userId);
@@ -43,17 +48,21 @@ public class MessagePresenter {
             @Override
             public void onResponse(Call<List<MessageVO>> call, Response<List<MessageVO>> response) {
                 if (response.isSuccessful()) {
+                    // 메시지 정보를 전달받음
                     messageList = response.body();
                     Log.i("user : ", MessagePresenter.this.messageList.toString());
-                    objAdapter = new MessageListAdapter(messageActivity,
+                    messageListAdapter = new MessageListAdapter(messageActivity,
                             R.layout.message_item, messageList);
                     messageActivity.dispatchMessageInfo(messageList);
-                    listView.setAdapter(objAdapter);
+                    listView.setAdapter(messageListAdapter);
                 } else {
+                    // 에러 정보 출력
                     Log.i("error : ", response.errorBody().toString());
                 }
 
             }
+
+            // 서버와 접속 실패
             @Override
             public void onFailure(Call<List<MessageVO>> call, Throwable t) {
                 Log.i("에러 : ", t.getMessage());

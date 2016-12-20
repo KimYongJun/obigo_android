@@ -13,8 +13,7 @@ public class UserRequestVO {
     private String location;
     private String vin;
 
-    public UserRequestVO() {
-    }
+    public UserRequestVO() {}
 
     public UserRequestVO(String userId, String modelCode, String color, String location, String vin) {
         this.userId = userId;
