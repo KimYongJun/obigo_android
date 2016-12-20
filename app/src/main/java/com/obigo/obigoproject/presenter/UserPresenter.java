@@ -6,6 +6,7 @@ import com.obigo.obigoproject.activity.LoginActivity;
 import com.obigo.obigoproject.service.ServiceManager;
 import com.obigo.obigoproject.service.UserService;
 import com.obigo.obigoproject.vo.RegistrationIdVO;
+import com.obigo.obigoproject.vo.UserVO;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,6 +23,8 @@ public class UserPresenter {
 
     private LoginActivity loginActivity;
     private boolean registrationIdResult;
+    private String userId;
+    private UserVO userVO;
 
     public UserPresenter(LoginActivity loginActivity) {
         this.loginActivity = loginActivity;
@@ -43,6 +46,29 @@ public class UserPresenter {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Log.i("에러 : ", t.getMessage());
+            }
+        });
+    }
+
+    public void getUser(){
+        Log.i("userId  : ", userId);
+        Call<UserVO> call = userService.getUser(userId);
+        call.enqueue(new Callback<UserVO>() {
+            @Override
+            public void onResponse(Call<UserVO> call, Response<UserVO> response) {
+                if (response.isSuccessful()) {
+                    userVO = response.body();
+                    Log.i("user : ", UserPresenter.this.userVO.toString());
+                   // userInfoActivity.dispatchUserInfo(userVO);
+
+                } else {
+                    Log.i("error : ", response.errorBody().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserVO> call, Throwable t) {
+                Log.i("error : ", t.getMessage());
             }
         });
     }

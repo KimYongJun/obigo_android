@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.obigo.obigoproject.R;
 import com.obigo.obigoproject.presenter.MessagePresenter;
+import com.obigo.obigoproject.util.ConstantsUtil;
 import com.obigo.obigoproject.vo.MessageVO;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class MessageActivity extends MenuActivity implements OnItemClickListener
         listView = (ListView) findViewById(R.id.listView);
         listView.setOnItemClickListener(this);
 
-        messagePresenter = new MessagePresenter(this, "ssung", listView);
+        messagePresenter = new MessagePresenter(this, ConstantsUtil.TEST_USER_ID, listView);
         messagePresenter.getMessageList();
     }
 

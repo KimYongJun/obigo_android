@@ -50,6 +50,15 @@
                 android:hint="Password"/>
         </android.support.design.widget.TextInputLayout>
 
+        <CheckBox
+            android:id="@+id/auto_login_check"
+            android:layout_gravity="right"
+            android:text="Auto Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_width="fill_parent"

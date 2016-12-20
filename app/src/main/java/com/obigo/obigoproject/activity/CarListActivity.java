@@ -1,22 +1,18 @@
 package com.obigo.obigoproject.activity;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.obigo.obigoproject.R;
+import com.obigo.obigoproject.adapter.CarListAdapter;
 import com.obigo.obigoproject.presenter.UserVehiclePresenter;
 import com.obigo.obigoproject.util.ConstantsUtil;
-import com.obigo.obigoproject.util.FlipperUtil;
 import com.obigo.obigoproject.vo.UserVehicleVO;
 import com.viewpagerindicator.PageIndicator;
 
@@ -37,7 +33,6 @@ public class CarListActivity extends MenuActivity {
     // view pager
     @Bind(R.id.car_list_view)
     ViewPager viewPager;
-    //
     @Bind(R.id.indicator)
     PageIndicator indicator;
     // 차량 현재 이미지
@@ -46,11 +41,9 @@ public class CarListActivity extends MenuActivity {
     // 차량 다음 이미지
     @Bind(R.id.next_icon_image)
     ImageView nextCarListImage;
-    // 소유 차량 갯수
-    private int carListSize;
     // 페이지 위치 지정
     private int lastPage = 0;
-    // 이미지 배열(추후 스트링으로 바꿀예정)
+    // 이미지 배열
     private String[] icons;
     // 차량 이름 리스트
     private String[] carNameList;
@@ -69,7 +62,7 @@ public class CarListActivity extends MenuActivity {
         ButterKnife.bind(this);
 
         // 차량 요청 객체 생성
-        userVehiclePresenter = new UserVehiclePresenter(this, "ssung");
+        userVehiclePresenter = new UserVehiclePresenter(this, ConstantsUtil.TEST_USER_ID);
         userVehiclePresenter.getUserVehicleList();
 
         initAdapter();
@@ -170,9 +163,6 @@ public class CarListActivity extends MenuActivity {
                     userVehicleList.get(i).getModelImage();
         }
 
-        // 차량 갯수 대입
-        carListSize = userVehicleList.size();
-
         carNameList = new String[userVehicleList.size()];
 
         // 차량 이름 리스트 넣기
@@ -187,48 +177,9 @@ public class CarListActivity extends MenuActivity {
         }
 
         nextCarListImage.setVisibility(View.GONE);
-        viewPager.setAdapter(new IntroAdapter());
+        viewPager.setAdapter(new CarListAdapter(this, carNameList, userVehicleList));
         viewPager.setPageMargin(0);
         viewPager.setOffscreenPageLimit(1);
         indicator.setViewPager(viewPager);
-    }
-
-
-    private class IntroAdapter extends PagerAdapter {
-
-        @Override
-        public int getCount() {
-            return carListSize;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view.equals(object);
-        }
-
-        // 차량 이미지 마다 이름 넣기
-        @Override
-        public Object instantiateItem(ViewGroup container, final int position) {
-            View view = View.inflate(container.getContext(), R.layout.car_list_name, null);
-            TextView messageTextView = ButterKnife.findById(view, R.id.message_text);
-
-            messageTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(CarListActivity.this, CarDetailActivity.class);
-                    intent.putExtra("carDetailInfo", userVehicleList.get(position));
-                    startActivity(intent);
-                }
-            });
-
-            container.addView(view, 0);
-            messageTextView.setText(FlipperUtil.replaceTags(carNameList[position], getApplicationContext()));
-            return view;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
     }
 }

@@ -26,19 +26,20 @@ import java.util.List;
 /**
  * Created by O BI HE ROCK on 2016-12-14
  * 김용준, 최현욱
+ * MessageList 출력
  */
 
 public class MessageListAdapter extends ArrayAdapter<MessageVO> {
-    private Activity activity;
+    private Activity messageActivity;
     private List<MessageVO> messageList;
     private MessageVO messageVO;
     private int row;
     private DisplayImageOptions options;
     private ImageLoader imageLoader;
 
-    public MessageListAdapter(Activity act, int resource, List<MessageVO> messageList) {
-        super(act, resource, messageList);
-        this.activity = act;
+    public MessageListAdapter(Activity messageActivity, int resource, List<MessageVO> messageList) {
+        super(messageActivity, resource, messageList);
+        this.messageActivity = messageActivity;
         this.row = resource;
         this.messageList = messageList;
 
@@ -59,8 +60,9 @@ public class MessageListAdapter extends ArrayAdapter<MessageVO> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
         ViewHolder holder;
+
         if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) activity
+            LayoutInflater inflater = (LayoutInflater) messageActivity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(row, null);
 
@@ -99,7 +101,7 @@ public class MessageListAdapter extends ArrayAdapter<MessageVO> {
                 final ProgressBar pbar = holder.messageBar;
 
                 imageLoader.init(ImageLoaderConfiguration
-                        .createDefault(activity));
+                        .createDefault(messageActivity));
                 imageLoader.displayImage(ConstantsUtil.SERVER_API_URL_REAL + ConstantsUtil.SERVER_MESSAGE_IMAGE_URL
                         + messageList.get(position).getUploadFile(), holder.messageImage, options, new ImageLoadingListener() {
                     @Override
@@ -131,7 +133,9 @@ public class MessageListAdapter extends ArrayAdapter<MessageVO> {
     }
 
     class ViewHolder {
-        public TextView messageTitle, messageContent, messageDate;
+        public TextView messageTitle;
+        public TextView messageContent;
+        public TextView messageDate;
         public ImageView messageImage;
         public ProgressBar messageBar;
     }

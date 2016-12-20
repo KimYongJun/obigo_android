@@ -12,4 +12,6 @@ public class ConstantsUtil {
     public static String SERVER_VEHICLE_IMAGE_URL = "image/vehicle/";
     public static String SERVER_MESSAGE_IMAGE_URL = "image/pushmessage/";
 
+    public static String TEST_USER_ID = "won";
+
 }

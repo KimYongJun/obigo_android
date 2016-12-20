@@ -2,15 +2,19 @@ package com.obigo.obigoproject.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.obigo.obigoproject.R;
 import com.obigo.obigoproject.presenter.UserPresenter;
+import com.obigo.obigoproject.util.ConstantsUtil;
 import com.obigo.obigoproject.vo.RegistrationIdVO;
 
 import butterknife.Bind;
@@ -40,6 +44,14 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.btn_login)
     Button loginButton;
 
+    //체크박스
+    @Bind(R.id.auto_login_check)
+    CheckBox _auto_login_check;
+
+    //id,password 저장
+    SharedPreferences autoSetting;
+    SharedPreferences.Editor editor;
+
     // 유저 요청
     private UserPresenter userPresenter;
     // registrationId 등록 결과
@@ -53,7 +65,46 @@ public class LoginActivity extends AppCompatActivity {
 
         registrationIdResult = false;
         userPresenter = new UserPresenter(this);
+
+        autoLoginSettings();
     }
+
+
+    //자동 로그인(id,password 저장 )
+    public void autoLoginSettings(){
+        autoSetting = getSharedPreferences("autoSetting",0);
+        editor = autoSetting.edit();
+
+        if(autoSetting.getBoolean("Auto_Login_enabled", false)){
+            idText.setText(autoSetting.getString("ID", ""));
+            passwordText.setText(autoSetting.getString("PW", ""));
+            _auto_login_check.setChecked(true);
+        }
+
+        _auto_login_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    String ID = idText.getText().toString();
+                    String PW = passwordText.getText().toString();
+
+                    editor.putString("ID", ID);
+                    editor.putString("PW", PW);
+                    editor.putBoolean("Auto_Login_enabled", true);
+                    editor.commit();
+                }else{
+
+					/*editor.remove("ID");
+					editor.remove("PW");
+					editor.remove("Auto_Login_enabled");*/
+                    editor.clear();
+                    editor.commit();
+                }
+            }
+        });
+    }
+
+
 
     // 로그인 버튼 클릭
     @OnClick(R.id.btn_login)
@@ -102,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
         // 사용자 registrationId 등록
         String registrationId = FirebaseInstanceId.getInstance().getToken();
 
-        userPresenter.insertRegistrationId(new RegistrationIdVO("ssung", registrationId));
+        userPresenter.insertRegistrationId(new RegistrationIdVO(ConstantsUtil.TEST_USER_ID, registrationId));
 
         loginButton.setEnabled(true);
         finish();
